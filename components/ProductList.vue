@@ -10,6 +10,11 @@ const { currentBrand } = storeToRefs(store);
 
 watchEffect(() => {
   if (currentBrand.value) {
+    if (listData.value && currentBrand.value === -1) {
+      console.log("brand_all");
+      list.value = [...listData.value];
+      return;
+    }
     if (listData.value) {
       list.value = listData.value.filter(
         (item: any) => item.brand == currentBrand.value
@@ -33,7 +38,9 @@ onMounted(() => {
   <div class="container">
     <div v-for="item in list" :key="item.id">
       <!-- {{ item }} -->
-      <ProductCard :item="item" />
+      <div>
+        <ProductCard :item="item" />
+      </div>
     </div>
   </div>
 </template>
@@ -42,5 +49,6 @@ onMounted(() => {
 .container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 </style>

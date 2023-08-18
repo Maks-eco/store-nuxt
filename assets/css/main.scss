@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "ClassicFont";
+  src: url("../fonts/Raleway-Regular.ttf");
+}
+
+* {
+  margin: 0;
+  font-family: "ClassicFont", sans-serif;
+}

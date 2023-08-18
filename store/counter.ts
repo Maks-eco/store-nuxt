@@ -5,7 +5,7 @@ export const useCounterStore = defineStore("store_items", {
   state: () => ({
     count: 11 as Number,
     name: "Test value" as String,
-    currentBrand: "" as String,
+    currentBrand: null as Number | null,
   }),
   actions: {
     async getProducts() {

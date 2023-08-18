@@ -10,14 +10,20 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxthq/ui": "^2.7.0",
+    "@nuxtjs/style-resources": "^1.2.1",
+    "@types/bootstrap": "^5.2.6",
     "@types/node": "^18.17.3",
-    "nuxt": "^3.6.5"
+    "nuxt": "^3.6.5",
+    "sass": "^1.66.0",
+    "sass-loader": "^13.3.2"
   },
   "overrides": {
     "vue": "latest"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
+    "bootstrap-vue": "^2.23.1",
     "pinia": "^2.1.6"
   }
 }

@@ -7,11 +7,15 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
   display: flex;
 }
 .sidebar {
-  width: 100%;
+  position: fixed;
+  width: 200px;
+}
+.content {
+  margin-left: 200px;
 }
 </style>
