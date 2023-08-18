@@ -11,7 +11,7 @@ const { currentBrand } = storeToRefs(store);
 watchEffect(() => {
   if (currentBrand.value) {
     if (listData.value && currentBrand.value === -1) {
-      console.log("brand_all");
+      // console.log("brand_all");
       list.value = [...listData.value];
       return;
     }

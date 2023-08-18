@@ -3,25 +3,44 @@ import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
 import { Category } from "~/types";
 
-const allCategories: Category = {
+interface CategoryState extends Category {
+  active: boolean;
+}
+
+const allCategories: CategoryState = {
   id: -1,
   title: "All brands",
   code: "brand_all",
   sort: "0",
+  active: false,
 };
 
-const list = ref(null as Category[] | null);
+const list = ref(null as CategoryState[] | null);
 const store = useCounterStore();
 const { currentBrand } = storeToRefs(store);
 const isOpen = ref(false);
 
 const updateBrand = (id: number) => {
+  // console.log(id);
   currentBrand.value = id;
+  const index = list.value?.findIndex((item) => item.id === id);
+  // console.log(index);
+  list.value?.forEach((item: CategoryState) => {
+    item.active = false;
+    return item;
+  });
+  if (typeof index !== "undefined" && list.value) {
+    list.value[index].active = true;
+  }
 };
 
 onMounted(() => {
   store.getCategories().then((data: any) => {
-    list.value = [allCategories, ...data] as Category[];
+    data = data.map((item: CategoryState) => {
+      item.active = false;
+      return item;
+    });
+    list.value = [allCategories, ...data] as CategoryState[];
   });
 });
 </script>
@@ -33,7 +52,7 @@ onMounted(() => {
     <div class="list">
       <h2 class="header">Категории:</h2>
       <div
-        class="brand"
+        :class="[{ 'brand-active': item.active }, 'brand']"
         v-for="item in list"
         :key="item.id"
         v-on:click="updateBrand(item.id)"
@@ -75,6 +94,10 @@ hr {
       transition: color $title-transition;
     }
   }
+}
+
+.brand-active .title {
+  color: $active-color;
 }
 .title {
   // font-size: 1.2rem;

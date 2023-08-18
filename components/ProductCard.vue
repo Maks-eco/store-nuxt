@@ -20,10 +20,11 @@ const props = defineProps<{
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .container-item {
   display: flex;
   width: 200px;
+  /* height: fit-content; */
   margin: 40px 20px 0 20px;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -32,7 +33,14 @@ const props = defineProps<{
   margin-left: 20px;
 }
 .image {
-  width: 200px;
+  /* width: 200px; */
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s all ease-in-out;
+}
+.container-item:hover .image {
+  transform: scale(1.05);
 }
 .title {
   font-weight: 700;
@@ -43,6 +51,24 @@ const props = defineProps<{
   width: 100%;
 }
 .button {
-  border: 0;
+  width: 100%;
+
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border: 1px solid #aaa;
+  border-top: 0;
+  background-color: #fff;
+  color: #aaa;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.container-item:hover .button {
+  color: $active-color;
+  border: 1px solid $active-color;
+  border-top: 0;
+  font-weight: 700;
+
+  transition: border-color 0.3s;
 }
 </style>
