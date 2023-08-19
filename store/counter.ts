@@ -6,7 +6,7 @@ import { Product, Category } from "~/types";
 
 const locStorage = {
   saveData: (name: string, value: any) => {
-    nuxtStorage.localStorage.setData(name, JSON.stringify(value));
+    nuxtStorage.localStorage.setData(name, JSON.stringify(value), 60 * 24);
   },
   getData: <T>(name: string): T | undefined => {
     try {
@@ -31,7 +31,7 @@ export const useCounterStore = defineStore("store_items", {
   state: () => ({
     count: 111 as Number,
     name: "Test value" as String,
-    currentBrand: null as Number | null,
+    currentBrand: -1 as Number /* | null */,
     storageProduct: [] as Product[],
   }),
   getters: {
@@ -39,6 +39,14 @@ export const useCounterStore = defineStore("store_items", {
       state.storageProduct
         ? state.storageProduct.reduce(
             (acc: number, item: Product) => acc + item.count,
+            0
+          )
+        : 0,
+    finalCost: (state) =>
+      state.storageProduct
+        ? state.storageProduct.reduce(
+            (acc: number, item: Product) =>
+              acc + item.count * item.regular_price.value,
             0
           )
         : 0,
@@ -73,6 +81,23 @@ export const useCounterStore = defineStore("store_items", {
         }
         return item;
       });
+      // console.log(this.storageProduct);
+      locStorage.saveData("container", this.storageProduct);
+    },
+    updateProductCount(product: Product) {
+      this.storageProduct = this.storageProduct.map((item) => {
+        if (item.id === product.id) {
+          return { ...product, count: product.count };
+        }
+        return item;
+      });
+      // console.log(this.storageProduct);
+      locStorage.saveData("container", this.storageProduct);
+    },
+    deleteCartProduct(product: Product) {
+      this.storageProduct = this.storageProduct.filter(
+        (item) => item.id !== product.id
+      );
       // console.log(this.storageProduct);
       locStorage.saveData("container", this.storageProduct);
     },

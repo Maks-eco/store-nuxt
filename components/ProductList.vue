@@ -44,8 +44,8 @@ onMounted(() => {
         <ProductCard :item="item" />
       </div>
     </div>
-    <h3 class="empty-list" v-if="list?.length === 0">Товары отсутствуют</h3>
   </div>
+  <h3 class="empty-list" v-if="list?.length === 0">Товары отсутствуют</h3>
 </template>
 
 <style lang="scss" scoped>

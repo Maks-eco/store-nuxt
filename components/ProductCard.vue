@@ -62,19 +62,29 @@ const envUrl = (url: string) => {
 }
 .button {
   width: 100%;
-
+  // border: 1px solid $secondary-inactive;
   padding-top: 7px;
   padding-bottom: 7px;
-  border: 1px solid $secondary-inactive;
-  border-top: 0;
+  // border-top: 0;
   background-color: #fff;
-  color: $secondary-inactive;
+
   font-size: 0.8rem;
   cursor: pointer;
+
+  @media (min-width: 480px) {
+    color: $secondary-inactive;
+    border: 1px solid $secondary-inactive;
+    border-top: 0;
+  }
+  @media (max-width: 480px) {
+    color: $active-color;
+    border: 1px solid $active-color;
+    border-top: 0;
+  }
 }
 
 $outl-color: $active-color;
-$ow: 0.2px;
+$ow: 0.1px;
 
 .container-item:hover .button {
   color: $active-color;

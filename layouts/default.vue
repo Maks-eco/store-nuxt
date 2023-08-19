@@ -43,6 +43,7 @@ watchEffect(() => {
   position: fixed;
   width: 100vw;
   background-color: #fff;
+  z-index: 10;
 }
 .logo {
   display: flex;
