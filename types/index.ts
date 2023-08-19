@@ -1,4 +1,5 @@
 export interface Product {
+  count: number;
   type: string;
   id: number;
   sku: string;
@@ -17,3 +18,7 @@ export interface Category {
   sort: string;
   code: string;
 }
+
+const baseUrl = "/store-nuxt/";
+
+export { baseUrl };
