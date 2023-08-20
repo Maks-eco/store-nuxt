@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Product, baseUrl } from "~/types";
+import { Product, baseUrl, Category } from "~/types";
 const store = useCounterStore();
+const brandList = ref(null as Category[] | null);
 
 const props = defineProps<{
   item: Product;
@@ -11,16 +12,30 @@ const envUrl = (url: string) => {
   return url;
 };
 
+const productBrand = (id: number) => {
+  if (brandList.value) {
+    const brand = brandList.value.find((item: Category) => item.id === id);
+    return brand?.title;
+  }
+  return "";
+};
+
+onMounted(() => {
+  store.getCategories().then((data: any) => {
+    brandList.value = [...data] as Category[];
+  });
+});
+
 // console.log(process.env, baseUrl.slice(0, -1));
 </script>
 
 <template>
   <div class="container-item">
-    <!-- {{ props.item }} -->
     <img class="image" :src="envUrl(props.item.image)" alt="" />
     <div class="description">
       <div class="title">{{ props.item.title }}</div>
-      <div class="price">{{ props.item.regular_price.value }}</div>
+      <div class="brand-title">{{ productBrand(props.item.brand) }}</div>
+      <div class="price">${{ props.item.regular_price.value.toFixed(2) }}</div>
     </div>
     <div class="btn-con">
       <button class="button" v-on:click="store.saveProduct(props.item)">
@@ -35,7 +50,7 @@ const envUrl = (url: string) => {
   display: flex;
   width: 200px;
   /* height: fit-content; */
-  margin: 40px 20px 0 20px;
+  margin: 20px 20px 20px 20px;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
@@ -55,6 +70,10 @@ const envUrl = (url: string) => {
 .title {
   font-weight: 700;
 }
+.brand-title {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
 .btn-con {
   display: flex;
   justify-content: center;
@@ -67,7 +86,7 @@ const envUrl = (url: string) => {
   padding-bottom: 7px;
   // border-top: 0;
   background-color: #fff;
-
+  border-radius: 0 0 10px 10px;
   font-size: 0.8rem;
   cursor: pointer;
 

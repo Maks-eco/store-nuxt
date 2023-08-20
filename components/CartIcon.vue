@@ -1,17 +1,11 @@
 <script setup lang="ts">
-// import { Product, baseUrl } from "~/types";
 import { storeToRefs } from "pinia";
 const numberOfPurchases = useCounterStore();
 const { countCartProducts } = storeToRefs(numberOfPurchases);
-// console.log(numberOfPurchases.countCartProducts);
-
-// onMounted(() => {
-//     countCartProducts.value = storeToRefs(numberOfPurchases).countCartProducts;
-// });
 </script>
 
 <template>
-  <div class="cart">
+  <div class="cart__container">
     <img class="cart__img" alt="cart" src="/images/basket-logo.png" />
     <div class="cart-counter__contnr" v-if="+countCartProducts > 0">
       <p class="cart-counter__text">
@@ -26,7 +20,7 @@ const { countCartProducts } = storeToRefs(numberOfPurchases);
 </template>
 
 <style lang="scss" scoped>
-.cart {
+.cart__container {
   width: 70px;
   height: 60px;
   text-align: center;

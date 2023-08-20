@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { onMounted, ref, onBeforeMount } from "vue";
+import { onMounted, ref } from "vue";
 import { Category } from "~/types";
 
 interface CategoryState extends Category {
@@ -22,11 +22,11 @@ const isOpen = ref(false);
 const activeContainer = ref(false);
 
 const updateBrand = (id: number) => {
-  activeContainer.value = !activeContainer.value;
-  // console.log(id);
+  activeContainer.value = false;
+
   currentBrand.value = id;
   const index = list.value?.findIndex((item) => item.id === id);
-  // console.log(index);
+
   list.value?.forEach((item: CategoryState) => {
     item.active = false;
     return item;
@@ -36,10 +36,6 @@ const updateBrand = (id: number) => {
   }
 };
 
-onBeforeMount(() => {
-  // updateBrand(+currentBrand.value);
-});
-
 onMounted(() => {
   store.getCategories().then((data: any) => {
     list.value = [allCategories, ...data] as CategoryState[];
@@ -48,39 +44,47 @@ onMounted(() => {
       return item;
     });
   });
-  // updateBrand(currentBrand.value);
-  // updateBrand(+currentBrand.value);
-  // console.log(currentBrand.value);
 });
 </script>
 
 <template>
-  <!-- <UButton label="Open" @click="isOpen = true" /> -->
-  <!-- <USlideover v-model="isOpen"> -->
-  <div :class="[{ 'container-inactive': !activeContainer }, 'container']">
-    <div class="list">
-      <h2 class="header">Категории:</h2>
-      <div
-        :class="[{ 'brand-active': item.active }, 'brand']"
-        v-for="item in list"
-        :key="item.id"
-        @click="updateBrand(item.id)"
-      >
-        <p class="title">{{ item.title }}</p>
+  <div :class="[{ backgrd: activeContainer }]" @click="activeContainer = false">
+    <div
+      :class="[{ 'container-inactive': !activeContainer }, 'container']"
+      @click.stop
+    >
+      <div class="list">
+        <h2 class="header">Категории:</h2>
+        <div
+          :class="[{ 'brand-active': item.active }, 'brand']"
+          v-for="item in list"
+          :key="item.id"
+          @click="updateBrand(item.id)"
+        >
+          <p class="title">{{ item.title }}</p>
+        </div>
       </div>
+      <hr class="hr" />
+      <button
+        class="hide-categories"
+        @click="activeContainer = !activeContainer"
+      >
+        Категории
+      </button>
     </div>
-    <hr class="hr" />
-    <button class="hide-categories" @click="activeContainer = !activeContainer">
-      Категории
-    </button>
   </div>
-
-  <!-- </USlideover> -->
 </template>
 
 <style lang="scss" scoped>
 $paddint-height: 6px;
 $title-transition: 0.3s;
+.backgrd {
+  @media (max-width: 480px) {
+    width: 100vw;
+    height: 100vh;
+    background-color: #99999955;
+  }
+}
 .container {
   position: fixed;
   display: flex;
@@ -97,13 +101,8 @@ $title-transition: 0.3s;
   margin-top: 10vh;
   width: 1px;
 }
-@media (max-width: 480px) {
-  .container-inactive {
-    left: -170px;
-    // transition: all 0.3s linear;
-  }
-  .hide-categories {
-    // display: flex;
+.hide-categories {
+  @media (max-width: 480px) {
     height: fit-content;
     position: relative;
     top: calc(20vh - 10px);
@@ -119,18 +118,15 @@ $title-transition: 0.3s;
     writing-mode: vertical-rl;
     cursor: pointer;
   }
-  .hr {
-    // margin-top: 5vh;
+
+  @media (min-width: 480px) {
+    height: 20px;
+    opacity: 0;
   }
 }
-@media (min-width: 480px) {
-  .hide-categories {
-    height: 20px;
-    /* position: relative;
-  left: 170px; */
-    // display: none;
-    opacity: 0;
-    // transition: all 0.3s linear;
+.container-inactive {
+  @media (max-width: 480px) {
+    left: -170px;
   }
 }
 

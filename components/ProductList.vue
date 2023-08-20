@@ -5,15 +5,12 @@ import { Product } from "~/types";
 const list = ref(null as Product[] | null);
 const listData = ref(null as Product[] | null);
 const store = useCounterStore();
-// console.log(store.storageProduct);
+
 const { currentBrand } = storeToRefs(store);
-// import nuxtStorage from "nuxt-storage";
-// console.log(nuxtStorage);
 
 watchEffect(() => {
   if (currentBrand.value) {
     if (listData.value && currentBrand.value === -1) {
-      // console.log("brand_all");
       list.value = [...listData.value];
       return;
     }
@@ -39,7 +36,6 @@ onMounted(() => {
 <template>
   <div class="container">
     <div v-for="item in list" :key="item.id">
-      <!-- {{ item }} -->
       <div>
         <ProductCard :item="item" />
       </div>
