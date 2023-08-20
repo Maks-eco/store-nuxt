@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { Product, baseUrl, Category } from "~/types";
+import { baseUrl, Category, ConfProducts, ProductFeature } from "~/types";
 const store = useCounterStore();
 const brandList = ref(null as Category[] | null);
 
 const props = defineProps<{
-  item: Product;
+  item: ConfProducts;
 }>();
+
+const productVariantSelected = ref(props.item.type === "simple");
 
 const envUrl = (url: string) => {
   if (process.env.NODE_ENV !== "development") return baseUrl.slice(0, -1) + url;
@@ -20,13 +22,20 @@ const productBrand = (id: number) => {
   return "";
 };
 
+const productVariantState = (state: boolean) => {
+  productVariantSelected.value = state;
+};
+
+const updateImageEvent = (product: ProductFeature) => {
+  props.item.image = product.image.slice(0, 6) + "s" + product.image.slice(6);
+  props.item.productFeature = { ...product };
+};
+
 onMounted(() => {
   store.getCategories().then((data: any) => {
     brandList.value = [...data] as Category[];
   });
 });
-
-// console.log(process.env, baseUrl.slice(0, -1));
 </script>
 
 <template>
@@ -38,10 +47,22 @@ onMounted(() => {
       <div class="price">${{ props.item.regular_price.value.toFixed(2) }}</div>
     </div>
     <div class="btn-con">
-      <button class="button" v-on:click="store.saveProduct(props.item)">
-        Добавить в корзину
+      <button
+        :class="['button', { 'button-inactive': !productVariantSelected }]"
+        v-on:click="
+          if (productVariantSelected) {
+            store.saveProduct(props.item);
+          }
+        "
+      >
+        {{ !productVariantSelected ? "Выберите опции" : "Добавить в корзину" }}
       </button>
     </div>
+    <VariantsIcon
+      :item="props.item"
+      @update-image="updateImageEvent"
+      @variant-selected="productVariantState"
+    />
   </div>
 </template>
 
@@ -49,16 +70,15 @@ onMounted(() => {
 .container-item {
   display: flex;
   width: 200px;
-  /* height: fit-content; */
   margin: 20px 20px 20px 20px;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
 .description {
   margin-left: 20px;
+  width: 160px;
 }
 .image {
-  /* width: 200px; */
   aspect-ratio: 1 / 1;
   width: 100%;
   object-fit: cover;
@@ -71,6 +91,7 @@ onMounted(() => {
   font-weight: 700;
 }
 .brand-title {
+  height: 15px;
   font-size: 0.8rem;
   margin-bottom: 5px;
 }
@@ -80,11 +101,10 @@ onMounted(() => {
   width: 100%;
 }
 .button {
+  height: 35px;
   width: 100%;
-  // border: 1px solid $secondary-inactive;
   padding-top: 7px;
   padding-bottom: 7px;
-  // border-top: 0;
   background-color: #fff;
   border-radius: 0 0 10px 10px;
   font-size: 0.8rem;
@@ -109,14 +129,18 @@ $ow: 0.1px;
   color: $active-color;
   border: 1px solid $active-color;
   border-top: 0;
-  // background-color: $secondary-active;
-  // font-weight: bold;
-  // font-size: 0.85rem;
 
   text-shadow: $ow $ow 0 $outl-color, $ow -$ow 0 $outl-color,
     -$ow $ow 0 $outl-color, -$ow -$ow 0 $outl-color, $ow 0px 0 $outl-color,
     0px $ow 0 $outl-color, -$ow 0px 0 $outl-color, 0px -$ow 0 $outl-color;
 
   transition: all 0.3s;
+}
+
+.container-item:hover .button-inactive {
+  border: 1px solid $secondary-inactive;
+  border-top: 0;
+  color: $active-color;
+  cursor: default;
 }
 </style>

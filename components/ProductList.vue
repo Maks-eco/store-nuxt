@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
-import { Product } from "~/types";
-const list = ref(null as Product[] | null);
-const listData = ref(null as Product[] | null);
+import { ConfProducts } from "~/types";
+const list = ref(null as ConfProducts[] | null);
+const listData = ref(null as ConfProducts[] | null);
 const store = useCounterStore();
 
 const { currentBrand } = storeToRefs(store);
@@ -28,7 +28,7 @@ watchEffect(() => {
 
 onMounted(() => {
   store.getProducts().then((data: any) => {
-    listData.value = [...data] as Product[];
+    listData.value = [...data] as ConfProducts[];
   });
 });
 </script>

@@ -1,8 +1,6 @@
 import nuxtStorage from "nuxt-storage";
 import { defineStore } from "pinia";
-import { Product, Category } from "~/types";
-
-// import nuxtStorage from "nuxt-storage";
+import { Product, Category, ConfProducts } from "~/types";
 
 const locStorage = {
   saveData: (name: string, value: any) => {
@@ -22,7 +20,7 @@ const locStorage = {
     } catch (e) {
       console.log(e);
     }
-    // console.log(data);
+
     return data;
   },
 };
@@ -32,7 +30,7 @@ export const useCounterStore = defineStore("store_items", {
     count: 111 as Number,
     name: "Test value" as String,
     currentBrand: -1 as Number /* | null */,
-    storageProduct: [] as Product[],
+    storageProduct: [] as ConfProducts[],
   }),
   getters: {
     countCartProducts: (state) =>
@@ -53,7 +51,7 @@ export const useCounterStore = defineStore("store_items", {
   },
   actions: {
     async getProducts() {
-      return await fetch("products.json")
+      return await fetch("level3/products.json")
         .then((res) => res.json())
         .then((data) => {
           return data as Product;
@@ -61,9 +59,11 @@ export const useCounterStore = defineStore("store_items", {
     },
     getsaveProductList() {
       this.storageProduct = locStorage.getDataList<Product>("container");
-      // console.log(this.storageProduct);
     },
-    saveProduct(product: Product) {
+    saveProduct(product: ConfProducts) {
+      if (product.productFeature) {
+        product.id = product.productFeature.id;
+      }
       if (!this.storageProduct || this.storageProduct.length === 0) {
         this.storageProduct = [];
         this.storageProduct.push({ ...product, count: 0 });
@@ -74,14 +74,14 @@ export const useCounterStore = defineStore("store_items", {
       ) {
         this.storageProduct.push({ ...product, count: 0 });
       }
-      // console.log(this.storageProduct);
+
       this.storageProduct = this.storageProduct.map((item) => {
         if (item.id === product.id) {
           return { ...product, count: item.count + 1 };
         }
         return item;
       });
-      // console.log(this.storageProduct);
+
       locStorage.saveData("container", this.storageProduct);
     },
     updateProductCount(product: Product) {
@@ -91,14 +91,14 @@ export const useCounterStore = defineStore("store_items", {
         }
         return item;
       });
-      // console.log(this.storageProduct);
+
       locStorage.saveData("container", this.storageProduct);
     },
     deleteCartProduct(product: Product) {
       this.storageProduct = this.storageProduct.filter(
         (item) => item.id !== product.id
       );
-      // console.log(this.storageProduct);
+
       locStorage.saveData("container", this.storageProduct);
     },
     async getCategories() {

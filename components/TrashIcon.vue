@@ -13,7 +13,6 @@ const emit = defineEmits(["clickBtn"]);
   background-color: #fff;
   border: none;
   color: white;
-  /*  padding: 8px 20px; */
   text-decoration: none;
   display: inline-block;
   font-size: 16px;

@@ -42,7 +42,6 @@ watchEffect(() => {
 <style lang="scss" scoped>
 .header {
   display: flex;
-  /*  justify-content: space-between; */
   box-shadow: 0px 3px 6px 0px#ccc;
   position: fixed;
   width: 100vw;

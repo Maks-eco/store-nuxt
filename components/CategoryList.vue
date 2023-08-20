@@ -105,7 +105,7 @@ $title-transition: 0.3s;
   @media (max-width: 480px) {
     height: fit-content;
     position: relative;
-    top: calc(20vh - 10px);
+    top: 5vh /* calc(20vh - 10px) */;
     left: -1px;
     padding-top: 5px;
     padding-bottom: 5px;
