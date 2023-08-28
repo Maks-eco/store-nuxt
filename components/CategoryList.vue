@@ -104,17 +104,19 @@ $title-transition: 0.3s;
 .hide-categories {
   @media (max-width: 480px) {
     transform: rotate(270deg);
-    height: fit-content;
+    height: 30px;
+    width: 100px;
     position: relative;
     top: 10vh /* calc(20vh - 10px) */;
-    left: -29px;
-    padding-top: 5px;
+    left: -30px;
+    /* padding-top: 0px; */
     padding-bottom: 5px;
     background-color: #fff;
     border: 1px solid #aaa;
     border-radius: 0 0 5px 5px;
     border-top: 0;
     font-weight: bold;
+    font-size: 0.9rem;
     color: $main-inactive;
     // writing-mode: vertical-rl;
     cursor: pointer;
