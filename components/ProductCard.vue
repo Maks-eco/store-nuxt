@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { baseUrl, Category, ConfProducts, ProductFeature } from "~/types";
 const store = useCounterStore();
-const brandList = ref(null as Category[] | null);
+// const brandList = ref(null as Category[] | null);
 
 const props = defineProps<{
   item: ConfProducts;
+  brandList: Category[] | null;
 }>();
 
 const productVariantSelected = ref(props.item.type === "simple");
@@ -15,8 +16,8 @@ const envUrl = (url: string) => {
 };
 
 const productBrand = (id: number) => {
-  if (brandList.value) {
-    const brand = brandList.value.find((item: Category) => item.id === id);
+  if (props.brandList) {
+    const brand = props.brandList.find((item: Category) => item.id === id);
     return brand?.title;
   }
   return "";
@@ -32,9 +33,9 @@ const updateImageEvent = (product: ProductFeature) => {
 };
 
 onMounted(() => {
-  store.getCategories().then((data: any) => {
-    brandList.value = [...data] as Category[];
-  });
+  // store.getCategories().then((data: any) => {
+  //   brandList.value = [...data] as Category[];
+  // });
 });
 </script>
 
@@ -130,9 +131,9 @@ $ow: 0.1px;
   border: 1px solid $active-color;
   border-top: 0;
 
-  text-shadow: $ow $ow 0 $outl-color, $ow -$ow 0 $outl-color,
+  /*   text-shadow: $ow $ow 0 $outl-color, $ow -$ow 0 $outl-color,
     -$ow $ow 0 $outl-color, -$ow -$ow 0 $outl-color, $ow 0px 0 $outl-color,
-    0px $ow 0 $outl-color, -$ow 0px 0 $outl-color, 0px -$ow 0 $outl-color;
+    0px $ow 0 $outl-color, -$ow 0px 0 $outl-color, 0px -$ow 0 $outl-color; */
 
   transition: all 0.3s;
 }

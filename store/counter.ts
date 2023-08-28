@@ -50,6 +50,21 @@ export const useCounterStore = defineStore("store_items", {
         : 0,
   },
   actions: {
+    async gitFetchData(owner: string, repo: string, path: string) {
+      let data = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/contents/${path}`
+      )
+        .then((d) => d.json())
+        .then((d) =>
+          fetch(
+            `https://api.github.com/repos/${owner}/${repo}/git/blobs/${d.sha}`
+          )
+        )
+        .then((d) => d.json())
+        .then((d) => JSON.parse(atob(d.content)));
+
+      return data;
+    },
     async getProducts() {
       return await fetch("level3/products.json")
         .then((res) => res.json())

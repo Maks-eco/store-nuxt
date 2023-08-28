@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { Category } from "~/types";
 import { storeToRefs } from "pinia";
 
 const store = useCounterStore();
 const { storageProduct: list } = storeToRefs(store);
+const brands = ref(null as Category[] | null);
 
 watchEffect(() => {});
+onMounted(() => {
+  store.getCategories().then((data: any) => {
+    brands.value = [...data] as Category[];
+  });
+  // productVariantInfo(props.item);
+});
 </script>
 
 <template>
@@ -22,7 +30,7 @@ watchEffect(() => {});
     </div>
     <!--  -->
     <div class="product-contnr" v-for="item in list" :key="item.id">
-      <CartProductCard :item="item" />
+      <CartProductCard :item="item" :brands="brands" />
     </div>
     <h2 class="total-cost" v-if="store.finalCost > 0">
       Итог: ${{ store.finalCost.toFixed(2) }}

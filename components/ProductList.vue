@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
-import { ConfProducts } from "~/types";
+import { ConfProducts, Category } from "~/types";
 const list = ref(null as ConfProducts[] | null);
 const listData = ref(null as ConfProducts[] | null);
+const brandList = ref(null as Category[] | null);
 const store = useCounterStore();
 
 const { currentBrand } = storeToRefs(store);
@@ -30,6 +31,9 @@ onMounted(() => {
   store.getProducts().then((data: any) => {
     listData.value = [...data] as ConfProducts[];
   });
+  store.getCategories().then((data: any) => {
+    brandList.value = [...data] as Category[];
+  });
 });
 </script>
 
@@ -37,7 +41,7 @@ onMounted(() => {
   <div class="container">
     <div v-for="item in list" :key="item.id">
       <div>
-        <ProductCard :item="item" />
+        <ProductCard :item="item" :brand-list="brandList" />
       </div>
     </div>
   </div>
@@ -45,10 +49,24 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+// .container {
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: center;
+// }
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: inline-grid;
+  grid-template-columns: repeat(4, 1fr);
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 950px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 720px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 .empty-list {
   padding: 10vh 0 0 5vw;

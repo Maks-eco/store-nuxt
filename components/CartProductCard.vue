@@ -2,16 +2,17 @@
 import { onMounted, ref } from "vue";
 import { baseUrl, Category, ConfProducts } from "~/types";
 const store = useCounterStore();
-const brands = ref(null as Category[] | null);
+// const brands = ref(null as Category[] | null);
 const productVariantText1 = ref("");
 const productVariantText2 = ref("");
 
 const props = defineProps<{
   item: ConfProducts;
+  brands: Category[] | null;
 }>();
 
 const brandName = (id: number): string => {
-  const brand: Category | undefined = brands.value?.find(
+  const brand: Category | undefined = props.brands?.find(
     (item) => item.id === id
   );
   if (brand) {
@@ -43,9 +44,9 @@ const productVariantInfo = (product: ConfProducts) => {
 watchEffect(() => {});
 
 onMounted(() => {
-  store.getCategories().then((data: any) => {
-    brands.value = [...data] as Category[];
-  });
+  // store.getCategories().then((data: any) => {
+  //   brands.value = [...data] as Category[];
+  // });
   productVariantInfo(props.item);
 });
 const envUrl = (url: string) => {

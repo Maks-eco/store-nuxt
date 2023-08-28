@@ -6,7 +6,7 @@ const { countCartProducts } = storeToRefs(numberOfPurchases);
 
 <template>
   <div class="cart__container">
-    <img class="cart__img" alt="cart" src="/images/basket-logo.png" />
+    <img class="cart__img" alt="cart" src="/images/basket.svg" />
     <div class="cart-counter__contnr" v-if="+countCartProducts > 0">
       <p class="cart-counter__text">
         {{
@@ -29,7 +29,7 @@ const { countCartProducts } = storeToRefs(numberOfPurchases);
   margin-top: 10%;
   width: 80%;
   object-fit: cover;
-  opacity: 0.85;
+  opacity: 0.5;
 }
 .cart-counter__contnr {
   left: 45px;

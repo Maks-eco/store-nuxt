@@ -7,6 +7,10 @@ onMounted(() => {
   store.getsaveProductList();
 });
 
+store
+  .gitFetchData("fe-side", "vue-test", "assets/products.json")
+  .then((data) => console.log(data));
+
 watchEffect(() => {
   if (route?.name) {
     hideCart.value = route.name !== "cart" ? true : false;
@@ -24,7 +28,7 @@ watchEffect(() => {
   >
     <NuxtLink to="/">
       <div class="logo">
-        <img src="/images/logo.png" alt="logo" />
+        <img class="logo_img" src="/images/logo.svg" alt="logo" />
       </div>
     </NuxtLink>
 
@@ -56,9 +60,15 @@ watchEffect(() => {
 }
 .logo {
   display: flex;
-  align-items: center;
+  // align-items: center;
   height: $header-height;
-  margin-left: 30px;
+
+  &_img {
+    height: 70px;
+  }
+  @media (min-width: 480px) {
+    margin-left: 30px;
+  }
 }
 .cart {
   display: flex;

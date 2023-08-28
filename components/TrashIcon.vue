@@ -4,7 +4,7 @@ const emit = defineEmits(["clickBtn"]);
 
 <template>
   <button class="cart-button" @click="emit('clickBtn')">
-    <img class="trash-img" src="/images/trash.png" alt="product preview" />
+    <img class="trash-img" src="/images/trash.svg" alt="product preview" />
   </button>
 </template>
 
@@ -25,6 +25,6 @@ const emit = defineEmits(["clickBtn"]);
   }
 }
 .trash-img {
-  height: 35px;
+  height: 30px;
 }
 </style>

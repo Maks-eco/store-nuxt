@@ -103,19 +103,20 @@ $title-transition: 0.3s;
 }
 .hide-categories {
   @media (max-width: 480px) {
+    transform: rotate(270deg);
     height: fit-content;
     position: relative;
-    top: 5vh /* calc(20vh - 10px) */;
-    left: -1px;
+    top: 10vh /* calc(20vh - 10px) */;
+    left: -29px;
     padding-top: 5px;
     padding-bottom: 5px;
     background-color: #fff;
     border: 1px solid #aaa;
-    border-radius: 0 5px 5px 0;
-    border-left: 0;
+    border-radius: 0 0 5px 5px;
+    border-top: 0;
     font-weight: bold;
     color: $main-inactive;
-    writing-mode: vertical-rl;
+    // writing-mode: vertical-rl;
     cursor: pointer;
   }
 

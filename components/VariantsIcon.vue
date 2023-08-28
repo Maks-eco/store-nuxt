@@ -201,13 +201,13 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .variant-line {
-  width: 200px;
+  width: 160px;
   height: 22px;
 
   display: inline-grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   align-items: center;
-  justify-items: end;
+  justify-items: center;
 }
 .var {
   display: flex;
