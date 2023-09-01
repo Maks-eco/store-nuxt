@@ -2,6 +2,7 @@
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
 import { Category } from "~/types";
+import { gitFetchDataF } from "~/types/stor_scr";
 
 interface CategoryState extends Category {
   active: boolean;
@@ -15,7 +16,7 @@ const allCategories: CategoryState = {
   active: false,
 };
 
-const list = ref(null as CategoryState[] | null);
+// const list = ref(null as CategoryState[] | null);
 const store = useCounterStore();
 const { currentBrand } = storeToRefs(store);
 const isOpen = ref(false);
@@ -35,15 +36,18 @@ const updateBrand = (id: number) => {
     list.value[index].active = true;
   }
 };
+const { data: list, error } = await useAsyncData("brands", async () =>
+  gitFetchDataF<CategoryState[]>("fe-side", "vue-test", "assets/brands.json")
+);
 
 onMounted(() => {
-  store.getCategories().then((data: any) => {
-    list.value = [allCategories, ...data] as CategoryState[];
+  if (list.value) {
+    list.value = [allCategories, ...list.value];
     list.value = list.value.map((item: CategoryState) => {
       item.active = currentBrand.value === item.id ? true : false;
       return item;
     });
-  });
+  }
 });
 </script>
 

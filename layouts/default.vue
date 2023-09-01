@@ -7,10 +7,6 @@ onMounted(() => {
   store.getsaveProductList();
 });
 
-store
-  .gitFetchData("fe-side", "vue-test", "assets/products.json")
-  .then((data) => console.log(data));
-
 watchEffect(() => {
   if (route?.name) {
     hideCart.value = route.name !== "cart" ? true : false;

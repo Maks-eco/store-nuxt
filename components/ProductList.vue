@@ -2,38 +2,42 @@
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
 import { ConfProducts, Category } from "~/types";
+import { gitFetchDataF } from "~/types/stor_scr";
 const list = ref(null as ConfProducts[] | null);
-const listData = ref(null as ConfProducts[] | null);
+// const productData = ref(null as ConfProducts[] | null);
 const brandList = ref(null as Category[] | null);
 const store = useCounterStore();
 
 const { currentBrand } = storeToRefs(store);
 
+const { data: productData } = await useAsyncData("products", async () =>
+  gitFetchDataF<ConfProducts[]>(
+    "fe-side",
+    "vue-test",
+    "assets/level3/products.json"
+  )
+);
+
+const { data: listBrandGit } = await useAsyncData("brands", async () =>
+  gitFetchDataF<Category[]>("fe-side", "vue-test", "assets/brands.json")
+);
+
 watchEffect(() => {
   if (currentBrand.value) {
-    if (listData.value && currentBrand.value === -1) {
-      list.value = [...listData.value];
+    if (productData.value && currentBrand.value === -1) {
+      list.value = [...productData.value];
       return;
     }
-    if (listData.value) {
-      list.value = listData.value.filter(
+    if (productData.value) {
+      list.value = productData.value.filter(
         (item: any) => item.brand == currentBrand.value
       );
     }
   } else {
-    if (listData.value) {
-      list.value = [...listData.value];
+    if (productData.value) {
+      list.value = [...productData.value];
     }
   }
-});
-
-onMounted(() => {
-  store.getProducts().then((data: any) => {
-    listData.value = [...data] as ConfProducts[];
-  });
-  store.getCategories().then((data: any) => {
-    brandList.value = [...data] as Category[];
-  });
 });
 </script>
 
@@ -41,7 +45,7 @@ onMounted(() => {
   <div class="container">
     <div v-for="item in list" :key="item.id">
       <div>
-        <ProductCard :item="item" :brand-list="brandList" />
+        <ProductCard :item="item" :brand-list="listBrandGit" />
       </div>
     </div>
   </div>

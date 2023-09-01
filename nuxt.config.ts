@@ -5,6 +5,11 @@ const baseUrl = "/store-nuxt/";
 export default defineNuxtConfig({
   devtools: { enabled: false },
   // extends: ["github:fe-side/vue-test/assets"],
+  nitro: {
+    prerender: {
+      routes: ["/store-nuxt", "/"],
+    },
+  },
   runtimeConfig: {
     public: {
       baseUrl: baseUrl,
