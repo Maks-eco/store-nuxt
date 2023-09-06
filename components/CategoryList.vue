@@ -16,7 +16,7 @@ const allCategories: CategoryState = {
   active: false,
 };
 
-// const list = ref(null as CategoryState[] | null);
+const list = ref(null as CategoryState[] | null);
 const store = useCounterStore();
 const { currentBrand } = storeToRefs(store);
 const isOpen = ref(false);
@@ -36,13 +36,23 @@ const updateBrand = (id: number) => {
     list.value[index].active = true;
   }
 };
-const { data: list, error } = await useAsyncData("brands", async () =>
+const {
+  pending,
+  data: prelist,
+  error,
+} = await useAsyncData("brands", async () =>
   gitFetchDataF<CategoryState[]>("fe-side", "vue-test", "assets/brands.json")
 );
 
+watchEffect(() => {
+  if (pending) {
+    if (prelist.value) list.value = [allCategories, ...prelist.value];
+    // console.log("pending");
+  }
+});
 onMounted(() => {
   if (list.value) {
-    list.value = [allCategories, ...list.value];
+    // if (prelist.value) list.value = [allCategories, ...prelist.value];
     list.value = list.value.map((item: CategoryState) => {
       item.active = currentBrand.value === item.id ? true : false;
       return item;
@@ -87,6 +97,7 @@ $title-transition: 0.3s;
     width: 100vw;
     height: 100vh;
     background-color: #99999955;
+    backdrop-filter: blur(5px);
   }
 }
 .container {

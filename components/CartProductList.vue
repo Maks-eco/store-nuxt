@@ -29,9 +29,11 @@ onMounted(() => {
       <hr class="under-product" />
     </div>
     <!--  -->
-    <div class="product-contnr" v-for="item in list" :key="item.id">
-      <CartProductCard :item="item" :brands="brands" />
-    </div>
+    <TransitionGroup name="list">
+      <div class="product-contnr" v-for="item in list" :key="item.id">
+        <CartProductCard :item="item" :brands="brands" />
+      </div>
+    </TransitionGroup>
     <h2 class="total-cost" v-if="store.finalCost > 0">
       Итог: ${{ store.finalCost.toFixed(2) }}
     </h2>
@@ -40,6 +42,21 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.list-leave-active {
+  position: absolute;
+}
 .container {
   display: flex;
   flex-wrap: wrap;

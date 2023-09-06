@@ -42,10 +42,12 @@ watchEffect(() => {
 <style lang="scss" scoped>
 .header {
   display: flex;
-  box-shadow: 0px 3px 6px 0px#ccc;
+  box-shadow: 0px 1px 3px 0px#eee;
   position: fixed;
   width: 100vw;
-  background-color: #fff;
+  background-color: #ffffffdd;
+  backdrop-filter: blur(5px) grayscale(1);
+
   z-index: 10;
 }
 .header-justify-sb {

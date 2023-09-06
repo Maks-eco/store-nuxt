@@ -5,7 +5,7 @@ import { ConfProducts, Category } from "~/types";
 import { gitFetchDataF } from "~/types/stor_scr";
 const list = ref(null as ConfProducts[] | null);
 // const productData = ref(null as ConfProducts[] | null);
-const brandList = ref(null as Category[] | null);
+// const brandList = ref(null as Category[] | null);
 const store = useCounterStore();
 
 const { currentBrand } = storeToRefs(store);
@@ -43,21 +43,44 @@ watchEffect(() => {
 
 <template>
   <div class="container">
-    <div v-for="item in list" :key="item.id">
-      <div>
-        <ProductCard :item="item" :brand-list="listBrandGit" />
+    <TransitionGroup name="list">
+      <div v-for="item in list" :key="item.id">
+        <div>
+          <ProductCard :item="item" :brand-list="listBrandGit" />
+        </div>
       </div>
-    </div>
+    </TransitionGroup>
   </div>
   <h3 class="empty-list" v-if="list?.length === 0">Товары отсутствуют</h3>
 </template>
 
 <style lang="scss" scoped>
-// .container {
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: center;
+// .list-enter-active,
+// .list-leave-active {
+//   transition: all 0.5s ease;
 // }
+// .list-enter-from,
+// .list-leave-to {
+//   opacity: 0;
+//   transform: translateY(100px);
+// }
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  // transition: all 0.3s cubic-bezier(0.75, 0, 1, 1);
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+.list-leave-active {
+  position: absolute;
+}
+
 .container {
   display: inline-grid;
   grid-template-columns: repeat(4, 1fr);

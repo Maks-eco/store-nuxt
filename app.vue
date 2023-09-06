@@ -1,0 +1,20 @@
+<template>
+  <NuxtLayout>
+    <NuxtLoadingIndicator color="#ff0000" />
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
+<style>
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  /* filter: blur(1rem); */
+  /* filter: sepia(1); */
+  transform: translateY(100px);
+}
+</style>

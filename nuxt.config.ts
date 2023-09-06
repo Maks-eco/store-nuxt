@@ -16,6 +16,15 @@ export default defineNuxtConfig({
     },
   },
   app: {
+    // pageTransition: {
+    //   name: "fade",
+    //   mode: "out-in", // default
+    // },
+    // layoutTransition: {
+    //   name: "slide",
+    //   mode: "out-in", // default
+    // },
+    pageTransition: { name: "page", mode: "out-in" },
     head: {
       title: "Store App",
       htmlAttrs: {

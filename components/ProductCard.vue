@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { baseUrl, Category, ConfProducts, ProductFeature } from "~/types";
 const store = useCounterStore();
-// const brandList = ref(null as Category[] | null);
 
 const props = defineProps<{
   item: ConfProducts;
   brandList: Category[] | null;
 }>();
-
+const cardInfo = ref(props.item as ConfProducts);
 const productVariantSelected = ref(props.item.type === "simple");
 
 const envUrl = (url: string) => {
@@ -28,8 +27,9 @@ const productVariantState = (state: boolean) => {
 };
 
 const updateImageEvent = (product: ProductFeature) => {
-  props.item.image = product.image.slice(0, 6) + "s" + product.image.slice(6);
-  props.item.productFeature = { ...product };
+  cardInfo.value.image =
+    product.image.slice(0, 6) + "s" + product.image.slice(6);
+  cardInfo.value.productFeature = { ...product };
 };
 
 onMounted(() => {
@@ -41,18 +41,18 @@ onMounted(() => {
 
 <template>
   <div class="container-item">
-    <img class="image" :src="envUrl(props.item.image)" alt="" />
+    <img class="image" :src="envUrl(cardInfo.image)" alt="" />
     <div class="description">
-      <div class="title">{{ props.item.title }}</div>
-      <div class="brand-title">{{ productBrand(props.item.brand) }}</div>
-      <div class="price">${{ props.item.regular_price.value.toFixed(2) }}</div>
+      <div class="title">{{ cardInfo.title }}</div>
+      <div class="brand-title">{{ productBrand(cardInfo.brand) }}</div>
+      <div class="price">${{ cardInfo.regular_price.value.toFixed(2) }}</div>
     </div>
     <div class="btn-con">
       <button
         :class="['button', { 'button-inactive': !productVariantSelected }]"
         v-on:click="
           if (productVariantSelected) {
-            store.saveProduct(props.item);
+            store.saveProduct(cardInfo);
           }
         "
       >
@@ -60,7 +60,7 @@ onMounted(() => {
       </button>
     </div>
     <VariantsIcon
-      :item="props.item"
+      :item="cardInfo"
       @update-image="updateImageEvent"
       @variant-selected="productVariantState"
     />
