@@ -221,6 +221,9 @@ onMounted(() => {
   font-size: 0.65rem;
   font-weight: bold;
   color: #fff;
+
+  user-select: none;
+  cursor: pointer;
 }
 .var-active {
   outline: 2px solid $active-color;
@@ -250,8 +253,10 @@ onMounted(() => {
 }
 .var-inactive {
   opacity: 0.2;
+  cursor: auto;
 }
 .var-hidden {
   opacity: 0.2;
+  cursor: auto;
 }
 </style>

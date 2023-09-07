@@ -16,26 +16,28 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div
-    :class="[
-      'header',
-      { 'header-justify-sb': hideCart, 'header-justify-c': !hideCart },
-    ]"
-  >
-    <NuxtLink to="/">
-      <div class="logo">
-        <img class="logo_img" src="/images/logo.svg" alt="logo" />
-      </div>
-    </NuxtLink>
+  <div>
+    <div
+      :class="[
+        'header',
+        { 'header-justify-sb': hideCart, 'header-justify-c': !hideCart },
+      ]"
+    >
+      <NuxtLink to="/">
+        <div class="logo">
+          <img class="logo_img" src="/images/logo.svg" alt="logo" />
+        </div>
+      </NuxtLink>
 
-    <NuxtLink to="/cart" v-show="hideCart">
-      <div class="cart">
-        <CartIcon />
-      </div>
-    </NuxtLink>
-  </div>
-  <div class="page">
-    <slot />
+      <NuxtLink to="/cart" v-show="hideCart">
+        <div class="cart">
+          <CartIcon />
+        </div>
+      </NuxtLink>
+    </div>
+    <div class="page">
+      <slot />
+    </div>
   </div>
 </template>
 

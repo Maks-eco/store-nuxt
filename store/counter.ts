@@ -58,7 +58,8 @@ export const useCounterStore = defineStore("store_items", {
     getsaveProductList() {
       this.storageProduct = locStorage.getDataList<Product>("container");
     },
-    saveProduct(product: ConfProducts) {
+    saveProduct(productSave: ConfProducts) {
+      const product: ConfProducts = JSON.parse(JSON.stringify(productSave));
       if (product.productFeature) {
         product.id = product.productFeature.id;
       }
