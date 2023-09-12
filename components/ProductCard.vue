@@ -10,7 +10,10 @@ const cardInfo = ref(props.item as ConfProducts);
 const productVariantSelected = ref(props.item.type === "simple");
 
 const envUrl = (url: string) => {
-  if (process.env.NODE_ENV !== "development") return baseUrl.slice(0, -1) + url;
+  // if (process.env.NODE_ENV !== "development") return baseUrl.slice(0, -1) + url;
+  //https://raw.githubusercontent.com/fe-side/vue-test/master/assets/images/1.png
+  // console.log(url);
+  url = `https://raw.githubusercontent.com/fe-side/vue-test/master/assets${url}`;
   return url;
 };
 
