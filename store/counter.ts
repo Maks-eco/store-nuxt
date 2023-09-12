@@ -56,7 +56,7 @@ export const useCounterStore = defineStore("store_items", {
         });
     },
     getsaveProductList() {
-      this.storageProduct = locStorage.getDataList<Product>("container");
+      this.storageProduct = locStorage.getDataList<Product>("container-sn");
     },
     saveProduct(productSave: ConfProducts) {
       const product: ConfProducts = JSON.parse(JSON.stringify(productSave));
@@ -81,7 +81,7 @@ export const useCounterStore = defineStore("store_items", {
         return item;
       });
 
-      locStorage.saveData("container", this.storageProduct);
+      locStorage.saveData("container-sn", this.storageProduct);
     },
     updateProductCount(product: Product) {
       this.storageProduct = this.storageProduct.map((item) => {
@@ -91,14 +91,14 @@ export const useCounterStore = defineStore("store_items", {
         return item;
       });
 
-      locStorage.saveData("container", this.storageProduct);
+      locStorage.saveData("container-sn", this.storageProduct);
     },
     deleteCartProduct(product: Product) {
       this.storageProduct = this.storageProduct.filter(
         (item) => item.id !== product.id
       );
 
-      locStorage.saveData("container", this.storageProduct);
+      locStorage.saveData("container-sn", this.storageProduct);
     },
     async getCategories() {
       return await fetch("brands.json")
