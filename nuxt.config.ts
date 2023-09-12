@@ -39,6 +39,7 @@ export default defineNuxtConfig({
   modules: [
     // "@nuxthq/ui",
     // "nuxt-storage",
+    "@invictus.codes/nuxt-vuetify",
     [
       "@pinia/nuxt",
       {
@@ -46,6 +47,16 @@ export default defineNuxtConfig({
       },
     ],
   ],
+  vuetify: {
+    vuetifyOptions: {},
+    moduleOptions: {
+      treeshaking: true,
+      useIconCDN: false,
+      styles: "sass",
+      autoImport: true,
+      useVuetifyLabs: true,
+    },
+  },
   imports: {
     dirs: ["store"],
   },

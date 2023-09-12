@@ -62,7 +62,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="[{ backgrd: activeContainer }]" @click="activeContainer = false">
+  <div
+    :class="[{ backgrd: activeContainer }, 'box-wrap']"
+    @click="activeContainer = false"
+  >
     <div
       :class="[{ 'container-inactive': !activeContainer }, 'container']"
       @click.stop
@@ -99,6 +102,10 @@ $title-transition: 0.3s;
     background-color: #99999955;
     backdrop-filter: blur(5px);
   }
+}
+
+.box-wrap {
+  box-sizing: content-box;
 }
 .container {
   position: fixed;

@@ -10,6 +10,7 @@
     "deploy": "gh-pages --dotfiles -d .output/public"
   },
   "devDependencies": {
+    "@invictus.codes/nuxt-vuetify": "^0.3.0",
     "@nuxt/devtools": "latest",
     "@nuxthq/ui": "^2.7.0",
     "@nuxtjs/style-resources": "^1.2.1",

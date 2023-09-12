@@ -11,7 +11,7 @@ definePageMeta({
   <div class="container">
     <div class="sidebar"><CategoryList /></div>
     <div class="content">
-      <div class="border">
+      <div class="product-space">
         <ProductList />
       </div>
     </div>
@@ -24,7 +24,7 @@ definePageMeta({
   width: 200px;
   z-index: 5;
 }
-.border {
+.product-space {
   display: flex;
   justify-content: center;
 }
