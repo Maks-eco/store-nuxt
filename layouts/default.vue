@@ -51,7 +51,7 @@ watchEffect(() => {
       class="d-none d-sm-flex"
     >
       <CategoryList />
-      <CategoryList />
+      <!-- <CategoryList /> -->
     </v-navigation-drawer>
     <slot />
   </v-layout>
@@ -60,7 +60,7 @@ watchEffect(() => {
 <style lang="scss" scoped>
 .logo {
   display: flex;
-  // align-items: center;
+  /*  align-items: center; */
   height: $header-height;
 
   &_img {

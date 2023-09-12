@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useDisplay } from "vuetify";
+// import { useDisplay } from "vuetify";
 definePageMeta({
   layout: "default",
   layoutTransition: {
@@ -16,5 +16,3 @@ definePageMeta({
     <ProductList />
   </v-main>
 </template>
-
-<style lang="scss" scoped></style>
