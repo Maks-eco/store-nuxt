@@ -8,5 +8,10 @@ definePageMeta({
 </script>
 
 <template>
-  <div><CartProductList /></div>
+  <v-main
+    class="d-flex justify-center align-center pl-sm-none"
+    style="min-height: 300px"
+  >
+    <CartProductList />
+  </v-main>
 </template>

@@ -81,7 +81,7 @@ onMounted(() => {
           <p class="title">{{ item.title }}</p>
         </div>
       </div>
-      <hr class="hr" />
+      <!-- <hr class="hr" /> -->
       <button
         class="hide-categories"
         @click="activeContainer = !activeContainer"

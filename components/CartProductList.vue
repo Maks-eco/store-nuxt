@@ -62,16 +62,16 @@ onMounted(() => {
   flex-wrap: wrap;
   justify-content: center;
 }
-.product-contnr {
-  margin-bottom: 13px;
-  @media (min-width: 900px) {
-    width: 80vw;
-    margin-left: 10vw;
-  }
-  @media (max-width: 900px) {
-    margin-left: 10px;
-  }
-}
+// .product-contnr {
+//   margin-bottom: 13px;
+//   @media (min-width: 900px) {
+//     width: 80vw;
+//     margin-left: 10vw;
+//   }
+//   @media (max-width: 900px) {
+//     margin-left: 10px;
+//   }
+// }
 
 .product__descr {
   @media (min-width: 480px) {

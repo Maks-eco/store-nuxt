@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useDisplay } from "vuetify";
 definePageMeta({
   layout: "default",
   layoutTransition: {
@@ -8,30 +9,12 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="container">
-    <div class="sidebar"><CategoryList /></div>
-    <div class="content">
-      <div class="product-space">
-        <ProductList />
-      </div>
-    </div>
-  </div>
+  <v-main
+    class="d-flex justify-center align-center pl-sm-none"
+    style="min-height: 300px"
+  >
+    <ProductList />
+  </v-main>
 </template>
 
-<style lang="scss" scoped>
-.sidebar {
-  position: fixed;
-  width: 200px;
-  z-index: 5;
-}
-.product-space {
-  display: flex;
-  justify-content: center;
-}
-@media (min-width: 480px) {
-  .content {
-    margin-left: 200px;
-    // padding-left: auto;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
