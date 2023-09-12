@@ -103,7 +103,7 @@ const envUrl = (url: string) => {
       </div>
     </div>
   </div>
-  <hr class="under-product" />
+  <div class="under-product"></div>
 </template>
 
 <style lang="scss" scoped>
@@ -170,6 +170,7 @@ const envUrl = (url: string) => {
   object-fit: cover;
 }
 .under-product {
+  border-bottom: 1px solid $secondary-inactive;
   width: 90%;
   margin-left: 5%;
 

@@ -26,7 +26,7 @@ onMounted(() => {
           <p>Всего</p>
         </div>
       </div>
-      <hr class="under-product" />
+      <div class="under-product"></div>
     </div>
     <!--  -->
     <TransitionGroup name="list">
@@ -102,6 +102,7 @@ onMounted(() => {
 }
 
 .under-product {
+  border-bottom: 1px solid $secondary-inactive;
   width: 90%;
   margin-left: 5%;
 
