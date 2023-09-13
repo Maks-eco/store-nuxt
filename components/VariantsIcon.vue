@@ -239,7 +239,7 @@ onMounted(() => {
 }
 .attr-container {
   height: 44px;
-  margin-top: 10px;
+  margin-bottom: 4px;
   margin-left: 20px;
 }
 

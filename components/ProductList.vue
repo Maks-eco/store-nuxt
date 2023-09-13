@@ -47,14 +47,14 @@ watchEffect(() => {
     <v-row>
       <TransitionGroup name="list">
         <v-col
-          class="d-flex justify-center"
+          class="d-flex justify-start align-center flex-column"
           v-for="item in list"
           :key="item.id"
           cols="12"
-          xs="12"
-          sm="6"
-          md="4"
+          sm="12"
+          md="6"
           lg="3"
+          xl="2"
         >
           <ProductCard :item="item" :brand-list="listBrandGit" />
         </v-col>

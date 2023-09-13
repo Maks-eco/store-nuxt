@@ -45,9 +45,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-card width="180" class="m-5">
+  <v-card width="230" class="m-5" elevation="3">
     <v-img
-      height="200"
+      height="230"
       src="images/autumn-pumpkin-watercolor62.png"
       cover
       class="text-white"
@@ -56,32 +56,50 @@ onMounted(() => {
       <v-img :src="envUrl(cardInfo.image)" :style="{}"> </v-img>
     </v-img>
 
-    <v-card-text>
+    <v-card-text class="pb-1">
       <div class="font-weight-bold ms-1 mb-2">{{ cardInfo.title }}</div>
       <div class="ms-1">{{ productBrand(cardInfo.brand) }}</div>
       <div class="ms-1">${{ cardInfo.regular_price.value.toFixed(2) }}</div>
     </v-card-text>
+    <div v-if="props.item.type !== 'simple'">
+      <v-expand-transition>
+        <div v-if="expand">
+          <!-- <div class="py-2"></div> -->
+          <v-card-actions class="py-1">
+            <v-btn
+              class="font-weight-bold"
+              :color="!productVariantSelected ? 'grey-lighten-1' : 'orange'"
+              variant="text"
+              @click="
+                if (productVariantSelected) {
+                  store.saveProduct(cardInfo);
+                }
+              "
+            >
+              {{
+                !productVariantSelected
+                  ? "Выберите опции"
+                  : "Добавить в корзину"
+              }}
+            </v-btn>
+          </v-card-actions>
+          <VariantsIcon
+            :item="cardInfo"
+            @update-image="updateImageEvent"
+            @variant-selected="productVariantState"
+          />
+        </div>
+      </v-expand-transition>
 
-    <v-expand-transition>
-      <div v-if="expand">
-        <div class="py-2"></div>
+      <v-divider></v-divider>
 
-        <VariantsIcon
-          :item="cardInfo"
-          @update-image="updateImageEvent"
-          @variant-selected="productVariantState"
-        />
-      </div>
-    </v-expand-transition>
-
-    <v-divider></v-divider>
-
-    <v-card-actions>
-      <v-btn @click="expand = !expand">
-        {{ !expand ? "Full Report" : "Hide Report" }}
-      </v-btn>
-    </v-card-actions>
-    <v-card-actions>
+      <v-card-actions class="py-1">
+        <v-btn @click="expand = !expand">
+          {{ !expand ? "Выберите опции" : "Свернуть" }}
+        </v-btn>
+      </v-card-actions>
+    </div>
+    <v-card-actions class="py-1" v-else>
       <v-btn
         class="font-weight-bold"
         :color="!productVariantSelected ? 'grey-lighten-1' : 'orange'"
@@ -96,28 +114,6 @@ onMounted(() => {
       </v-btn>
     </v-card-actions>
   </v-card>
-
-  <!-- <div class="container-item"> -->
-  <!-- <img class="image" :src="envUrl(cardInfo.image)" alt="" />
-    <div class="description">
-      <div class="title">{{ cardInfo.title }}</div>
-      <div class="brand-title">{{ productBrand(cardInfo.brand) }}</div>
-      <div class="price">${{ cardInfo.regular_price.value.toFixed(2) }}</div>
-    </div>
-    <div class="btn-con">
-      <button
-        :class="['button', { 'button-inactive': !productVariantSelected }]"
-        v-on:click="
-          if (productVariantSelected) {
-            store.saveProduct(cardInfo);
-          }
-        "
-      >
-        {{ !productVariantSelected ? "Выберите опции" : "Добавить в корзину" }}
-      </button>
-    </div> -->
-
-  <!-- </div> -->
 </template>
 
 <style lang="scss" scoped>
