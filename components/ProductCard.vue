@@ -2,6 +2,8 @@
 import { baseUrl, Category, ConfProducts, ProductFeature } from "~/types";
 const store = useCounterStore();
 
+const expand = ref(false);
+
 const props = defineProps<{
   item: ConfProducts;
   brandList: Category[] | null;
@@ -43,8 +45,60 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container-item">
-    <img class="image" :src="envUrl(cardInfo.image)" alt="" />
+  <v-card width="180" class="m-5">
+    <v-img
+      height="200"
+      src="images/autumn-pumpkin-watercolor62.png"
+      cover
+      class="text-white"
+      :style="{}"
+    >
+      <v-img :src="envUrl(cardInfo.image)" :style="{}"> </v-img>
+    </v-img>
+
+    <v-card-text>
+      <div class="font-weight-bold ms-1 mb-2">{{ cardInfo.title }}</div>
+      <div class="ms-1">{{ productBrand(cardInfo.brand) }}</div>
+      <div class="ms-1">${{ cardInfo.regular_price.value.toFixed(2) }}</div>
+    </v-card-text>
+
+    <v-expand-transition>
+      <div v-if="expand">
+        <div class="py-2"></div>
+
+        <VariantsIcon
+          :item="cardInfo"
+          @update-image="updateImageEvent"
+          @variant-selected="productVariantState"
+        />
+      </div>
+    </v-expand-transition>
+
+    <v-divider></v-divider>
+
+    <v-card-actions>
+      <v-btn @click="expand = !expand">
+        {{ !expand ? "Full Report" : "Hide Report" }}
+      </v-btn>
+    </v-card-actions>
+    <v-card-actions>
+      <v-btn
+        class="font-weight-bold"
+        :color="!productVariantSelected ? 'grey-lighten-1' : 'orange'"
+        variant="text"
+        @click="
+          if (productVariantSelected) {
+            store.saveProduct(cardInfo);
+          }
+        "
+      >
+        {{ !productVariantSelected ? "Выберите опции" : "Добавить в корзину" }}
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+
+  <!-- <div class="container-item"> -->
+  <!-- <img class="image" :src="envUrl(cardInfo.image)" alt="" />
     <div class="description">
       <div class="title">{{ cardInfo.title }}</div>
       <div class="brand-title">{{ productBrand(cardInfo.brand) }}</div>
@@ -61,16 +115,16 @@ onMounted(() => {
       >
         {{ !productVariantSelected ? "Выберите опции" : "Добавить в корзину" }}
       </button>
-    </div>
-    <VariantsIcon
-      :item="cardInfo"
-      @update-image="updateImageEvent"
-      @variant-selected="productVariantState"
-    />
-  </div>
+    </div> -->
+
+  <!-- </div> -->
 </template>
 
 <style lang="scss" scoped>
+.aftr-opac:after {
+  content: "";
+  opacity: ".5";
+}
 .container-item {
   display: flex;
   width: 200px;

@@ -42,15 +42,26 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="container">
-    <TransitionGroup name="list">
-      <div v-for="item in list" :key="item.id">
-        <div>
+  <!-- <div class="container"> -->
+  <v-container>
+    <v-row>
+      <TransitionGroup name="list">
+        <v-col
+          class="d-flex justify-center"
+          v-for="item in list"
+          :key="item.id"
+          cols="12"
+          xs="12"
+          sm="6"
+          md="4"
+          lg="3"
+        >
           <ProductCard :item="item" :brand-list="listBrandGit" />
-        </div>
-      </div>
-    </TransitionGroup>
-  </div>
+        </v-col>
+      </TransitionGroup>
+    </v-row>
+  </v-container>
+  <!-- </div> -->
   <h3 class="empty-list" v-if="list?.length === 0">Товары отсутствуют</h3>
 </template>
 

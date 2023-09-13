@@ -3,6 +3,7 @@ import { useDisplay } from "vuetify";
 const store = useCounterStore();
 const route = useRoute();
 const hideCart = ref(true);
+const hideCategory = ref(true);
 
 const { smAndUp } = useDisplay();
 
@@ -16,7 +17,7 @@ watchEffect(() => {
   } else {
   }
   if (smAndUp) {
-    hideCart.value = smAndUp.value && hideCart.value;
+    hideCategory.value = smAndUp.value && hideCart.value;
   }
 });
 </script>
@@ -45,7 +46,7 @@ watchEffect(() => {
     </v-app-bar>
 
     <v-navigation-drawer
-      v-model="hideCart"
+      v-model="hideCategory"
       location="left"
       permanent
       class="d-none d-sm-flex"
