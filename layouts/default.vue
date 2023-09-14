@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
+// import { mdiDotsVertical } from "@mdi/js";
+// import "@mdi/font/css/materialdesignicons.css";
 const store = useCounterStore();
 const route = useRoute();
 const hideCart = ref(true);
@@ -32,6 +34,11 @@ watchEffect(() => {
         backdropFilter: 'blur(5px) grayscale(1)',
       }"
     >
+      <template v-slot:prepend>
+        <!-- <v-btn :icon="mdiDotsVertical" color="black"></v-btn> -->
+        <!-- <v-icon :icon="mdiDotsVertical" /> -->
+        <v-btn icon="mdi-menu" class="d-flex d-sm-none" />
+      </template>
       <NuxtLink to="/">
         <div class="logo">
           <img class="logo_img" src="/images/logo.svg" alt="logo" />

@@ -62,34 +62,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    :class="[{ backgrd: activeContainer }, 'box-wrap']"
-    @click="activeContainer = false"
-  >
-    <div
-      :class="[{ 'container-inactive': !activeContainer }, 'container']"
-      @click.stop
-    >
-      <div class="list">
-        <h2 class="header">Категории:</h2>
-        <div
-          :class="[{ 'brand-active': item.active }, 'brand']"
-          v-for="item in list"
-          :key="item.id"
-          @click="updateBrand(item.id)"
-        >
-          <p class="title">{{ item.title }}</p>
-        </div>
-      </div>
-      <!-- <hr class="hr" /> -->
-      <button
-        class="hide-categories"
-        @click="activeContainer = !activeContainer"
-      >
-        Категории
-      </button>
-    </div>
-  </div>
+  <!-- <div class="list"> -->
+  <h3 class="header">Категории:</h3>
+  <v-list class="pa-0 mx-2" mandatory>
+    <v-list-item
+      density="compact"
+      v-for="(item, i) in list"
+      class="rounded-lg"
+      :key="i"
+      :value="item"
+      :title="item.title"
+      color="orange"
+      @click="updateBrand(item.id)"
+    ></v-list-item>
+  </v-list>
+  <!-- </div> -->
 </template>
 
 <style lang="scss" scoped>
@@ -185,6 +172,6 @@ $title-transition: 0.3s;
 .header {
   font-weight: 100;
   margin: 30px 0 20px 10px;
-  color: #999;
+  color: $main-inactive;
 }
 </style>

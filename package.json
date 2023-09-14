@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@invictus.codes/nuxt-vuetify": "^0.3.0",
+    "@mdi/js": "^7.2.96",
     "@nuxt/devtools": "latest",
     "@nuxthq/ui": "^2.7.0",
     "@nuxtjs/style-resources": "^1.2.1",
@@ -25,6 +26,7 @@
     "vue": "latest"
   },
   "dependencies": {
+    "@mdi/font": "^7.2.96",
     "@pinia/nuxt": "^0.4.11",
     "bootstrap-vue": "^2.23.1",
     "nuxt-storage": "^1.2.2",
