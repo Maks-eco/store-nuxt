@@ -60,7 +60,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["store"],
   },
-  css: ["@/assets/css/main.scss"],
+  css: ["@/assets/css/main.scss", "@mdi/font/css/materialdesignicons.css"],
   vite: {
     css: {
       preprocessorOptions: {
