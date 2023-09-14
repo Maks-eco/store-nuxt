@@ -27,6 +27,10 @@ const productBrand = (id: number) => {
   return "";
 };
 
+const userAcceptProduct = () => {
+  store.saveProduct(cardInfo.value);
+};
+
 const productVariantState = (state: boolean) => {
   productVariantSelected.value = state;
 };
@@ -64,25 +68,11 @@ onMounted(() => {
     <div v-if="props.item.type !== 'simple'">
       <v-expand-transition>
         <div v-if="expand">
-          <!-- <div class="py-2"></div> -->
-          <v-card-actions class="py-1">
-            <v-btn
-              class="font-weight-bold"
-              :color="!productVariantSelected ? 'grey-lighten-1' : 'orange'"
-              variant="text"
-              @click="
-                if (productVariantSelected) {
-                  store.saveProduct(cardInfo);
-                }
-              "
-            >
-              {{
-                !productVariantSelected
-                  ? "Выберите опции"
-                  : "Добавить в корзину"
-              }}
-            </v-btn>
-          </v-card-actions>
+          <ProductAcceptButton
+            @on-click-act="userAcceptProduct"
+            :productVariantSelected="productVariantSelected"
+          />
+
           <VariantsIcon
             :item="cardInfo"
             @update-image="updateImageEvent"
@@ -99,20 +89,11 @@ onMounted(() => {
         </v-btn>
       </v-card-actions>
     </div>
-    <v-card-actions class="py-1" v-else>
-      <v-btn
-        class="font-weight-bold"
-        :color="!productVariantSelected ? 'grey-lighten-1' : 'orange'"
-        variant="text"
-        @click="
-          if (productVariantSelected) {
-            store.saveProduct(cardInfo);
-          }
-        "
-      >
-        {{ !productVariantSelected ? "Выберите опции" : "Добавить в корзину" }}
-      </v-btn>
-    </v-card-actions>
+    <ProductAcceptButton
+      @on-click-act="userAcceptProduct"
+      :productVariantSelected="true"
+      v-else
+    />
   </v-card>
 </template>
 
