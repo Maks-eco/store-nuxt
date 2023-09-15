@@ -45,54 +45,58 @@ const updateImageEvent = (product: ProductFeature) => {
 </script>
 
 <template>
-  <v-hover v-slot="{ isHovering, props }" close-delay="150">
-    <v-card
-      width="230"
-      class="mx-5 trans-it"
-      :class="isHovering ? ' mt-5 mb-7' : ' mt-7 mb-5'"
-      elevation="3"
-      v-bind="props"
-    >
-      <v-img height="230" src="images/autumn-pumpkin-watercolor62.png" cover>
-        <v-img :src="envUrl(cardInfo.image)" :style="{}"> </v-img>
-      </v-img>
+  <div>
+    <v-hover v-slot="{ isHovering, props }" close-delay="150">
+      <v-card
+        width="230"
+        class="mx-5 trans-it"
+        :class="isHovering ? ' mt-5 mb-7' : ' mt-7 mb-5'"
+        elevation="3"
+        v-bind="props"
+      >
+        <v-img height="230" src="images/autumn-pumpkin-watercolor62.png" cover>
+          <v-img :src="envUrl(cardInfo.image)" :style="{}"> </v-img>
+        </v-img>
 
-      <v-card-text class="pb-1">
-        <div class="font-weight-bold ms-1 mb-2">{{ cardInfo.title }}</div>
-        <div class="ms-1">{{ productBrand(cardInfo.brand) }}</div>
-        <div class="ms-1">${{ cardInfo.regular_price.value.toFixed(2) }}</div>
-      </v-card-text>
-      <div v-if="globalProps.item.type !== 'simple'">
-        <v-expand-transition>
-          <div v-if="expand">
-            <ProductAcceptButton
-              @on-click-act="userAcceptProduct"
-              :productVariantSelected="productVariantSelected"
-            />
-
-            <VariantsIcon
-              :item="cardInfo"
-              @update-image="updateImageEvent"
-              @variant-selected="productVariantState"
-            />
+        <v-card-text class="pb-1">
+          <div class="font-weight-bold ms-1 mb-2">
+            {{ cardInfo.title }}
           </div>
-        </v-expand-transition>
+          <div class="ms-1">{{ productBrand(cardInfo.brand) }}</div>
+          <div class="ms-1">${{ cardInfo.regular_price.value.toFixed(2) }}</div>
+        </v-card-text>
+        <div v-if="globalProps.item.type !== 'simple'">
+          <v-expand-transition>
+            <div v-if="expand">
+              <ProductAcceptButton
+                @on-click-act="userAcceptProduct"
+                :productVariantSelected="productVariantSelected"
+              />
 
-        <v-divider></v-divider>
+              <VariantsIcon
+                :item="cardInfo"
+                @update-image="updateImageEvent"
+                @variant-selected="productVariantState"
+              />
+            </div>
+          </v-expand-transition>
 
-        <v-card-actions class="py-1">
-          <v-btn @click="expand = !expand">
-            {{ !expand ? "Выберите опции" : "Свернуть" }}
-          </v-btn>
-        </v-card-actions>
-      </div>
-      <ProductAcceptButton
-        @on-click-act="userAcceptProduct"
-        :productVariantSelected="true"
-        v-else
-      />
-    </v-card>
-  </v-hover>
+          <v-divider></v-divider>
+
+          <v-card-actions class="py-1">
+            <v-btn @click="expand = !expand">
+              {{ !expand ? "Выберите опции" : "Свернуть" }}
+            </v-btn>
+          </v-card-actions>
+        </div>
+        <ProductAcceptButton
+          @on-click-act="userAcceptProduct"
+          :productVariantSelected="true"
+          v-else
+        />
+      </v-card>
+    </v-hover>
+  </div>
 </template>
 
 <style lang="scss" scoped>

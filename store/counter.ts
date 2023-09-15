@@ -1,6 +1,6 @@
 import nuxtStorage from "nuxt-storage";
 import { defineStore } from "pinia";
-import { Product, Category, ConfProducts } from "~/types";
+import { Product, Category, ConfProducts, CategoryState } from "~/types";
 
 const locStorage = {
   saveData: (name: string, value: any) => {
@@ -49,11 +49,24 @@ export const useCounterStore = defineStore("store_items", {
   },
   actions: {
     async getProducts() {
-      return await fetch("level3/products.json")
-        .then((res) => res.json())
-        .then((data) => {
-          return data as Product;
-        });
+      return (
+        $fetch("level3/products.json")
+          // .then((res) => res.json())
+          .then((data) => {
+            // console.log(data);
+            return data as Product[];
+          })
+      );
+    },
+    async getCategories<T>(): Promise<T[] | null> {
+      return (
+        $fetch("brands.json")
+          // .then((res) => res.json())
+          .then((data) => {
+            // console.log(data);
+            return data as T[];
+          })
+      );
     },
     getsaveProductList() {
       this.storageProduct = locStorage.getDataList<Product>("container-sn");
@@ -99,13 +112,6 @@ export const useCounterStore = defineStore("store_items", {
       );
 
       locStorage.saveData("container-sn", this.storageProduct);
-    },
-    async getCategories() {
-      return await fetch("brands.json")
-        .then((res) => res.json())
-        .then((data) => {
-          return data as Category;
-        });
     },
   },
 });

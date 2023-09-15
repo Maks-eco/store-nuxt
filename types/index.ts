@@ -19,6 +19,10 @@ export interface Category {
   code: string;
 }
 
+export interface CategoryState extends Category {
+  active: boolean;
+}
+
 export enum variantState {
   Checked = "Checked",
   Unchecked = "Unchecked",

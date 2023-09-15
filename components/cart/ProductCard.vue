@@ -74,7 +74,7 @@ const envUrl = (url: string) => {
         </div>
         <p class="active-min">${{ item.regular_price.value.toFixed(2) }}</p>
         <div :style="{ 'text-align': 'right' }" class="active-min">
-          <TrashIcon @click-btn="store.deleteCartProduct(item)" />
+          <CartTrashIcon @click-btn="store.deleteCartProduct(item)" />
         </div>
       </div>
     </div>
@@ -100,7 +100,7 @@ const envUrl = (url: string) => {
         }}
       </p>
       <div class="active-max">
-        <TrashIcon @click-btn="store.deleteCartProduct(item)" />
+        <CartTrashIcon @click-btn="store.deleteCartProduct(item)" />
       </div>
     </div>
   </div>

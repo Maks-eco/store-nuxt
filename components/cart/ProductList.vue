@@ -1,18 +1,28 @@
 <script setup lang="ts">
 import { Category } from "~/types";
 import { storeToRefs } from "pinia";
-
+import stBrands from "~/src/brands.json";
+const brands = ref(stBrands as Category[]);
 const store = useCounterStore();
 const { storageProduct: list } = storeToRefs(store);
-const brands = ref(null as Category[] | null);
+// const brands = ref(null as Category[] | null);
+
+// const {
+//   pending,
+//   data: brands,
+//   error,
+// } = await useAsyncData("brands", async () =>
+//   // gitFetchDataF<CategoryState[]>("fe-side", "vue-test", "assets/brands.json")
+//   store.getCategories<Category>().catch((e) => console.log(e))
+// );
 
 watchEffect(() => {});
-onMounted(() => {
-  store.getCategories().then((data: any) => {
-    brands.value = [...data] as Category[];
-  });
-  // productVariantInfo(props.item);
-});
+// onMounted(() => {
+//   store.getCategories().then((data: any) => {
+//     brands.value = [...data] as Category[];
+//   });
+//   // productVariantInfo(props.item);
+// });
 </script>
 
 <template>
@@ -31,7 +41,7 @@ onMounted(() => {
     <!--  -->
     <TransitionGroup name="list">
       <div class="product-contnr" v-for="item in list" :key="item.id">
-        <CartProductCard :item="item" :brands="brands" />
+        <CartProductCard :item="item" :brands="brands ? brands : null" />
       </div>
     </TransitionGroup>
     <h2 class="total-cost" v-if="store.finalCost > 0">

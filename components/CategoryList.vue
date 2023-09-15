@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
-import { Category } from "~/types";
+import { Category, CategoryState } from "~/types";
 import { gitFetchDataF } from "~/types/stor_scr";
-
-interface CategoryState extends Category {
-  active: boolean;
-}
+import stBrands from "~/src/brands.json";
 
 const allCategories: CategoryState = {
   id: -1,
@@ -16,7 +13,8 @@ const allCategories: CategoryState = {
   active: false,
 };
 
-const list = ref(null as CategoryState[] | null);
+const list = ref([allCategories, ...stBrands] as CategoryState[]);
+// const list = ref(null as CategoryState[] | null);
 const store = useCounterStore();
 const { currentBrand } = storeToRefs(store);
 const isOpen = ref(false);
@@ -36,29 +34,30 @@ const updateBrand = (id: number) => {
     list.value[index].active = true;
   }
 };
-const {
-  pending,
-  data: prelist,
-  error,
-} = await useAsyncData("brands", async () =>
-  gitFetchDataF<CategoryState[]>("fe-side", "vue-test", "assets/brands.json")
-);
+// const {
+//   pending,
+//   data: prelist,
+//   error,
+// } = await useAsyncData("brands", async () =>
+//   // gitFetchDataF<CategoryState[]>("fe-side", "vue-test", "assets/brands.json")
+//   store.getCategories<CategoryState>().catch((e) => console.log(e))
+// );
 
-watchEffect(() => {
-  if (pending) {
-    if (prelist.value) list.value = [allCategories, ...prelist.value];
-    // console.log("pending");
-  }
-});
-onMounted(() => {
-  if (list.value) {
-    // if (prelist.value) list.value = [allCategories, ...prelist.value];
-    list.value = list.value.map((item: CategoryState) => {
-      item.active = currentBrand.value === item.id ? true : false;
-      return item;
-    });
-  }
-});
+// watchEffect(() => {
+//   if (pending) {
+//     if (prelist.value) list.value = [allCategories, ...prelist.value];
+//     // console.log("pending");
+//   }
+// });
+// onMounted(() => {
+//   if (list.value) {
+//     // if (prelist.value) list.value = [allCategories, ...prelist.value];
+//     list.value = list.value.map((item: CategoryState) => {
+//       item.active = currentBrand.value === item.id ? true : false;
+//       return item;
+//     });
+//   }
+// });
 </script>
 
 <template>
