@@ -59,7 +59,7 @@ const updateImageEvent = (product: ProductFeature) => {
         </v-img>
 
         <v-card-text class="pb-1">
-          <div class="font-weight-bold ms-1 mb-2">
+          <div class="global-font-classic font-weight-bold text-h6 ms-1 mb-2">
             {{ cardInfo.title }}
           </div>
           <div class="ms-1">{{ productBrand(cardInfo.brand) }}</div>
