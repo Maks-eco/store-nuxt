@@ -9,7 +9,7 @@ const menuButton = ref(false);
 const { smAndUp } = useDisplay();
 
 const toggle = () => {
-  console.log("menuButton = !menuButton", menuButton.value);
+  // console.log("menuButton = !menuButton", menuButton.value);
   menuButton.value = !menuButton.value;
 };
 
