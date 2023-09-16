@@ -70,107 +70,21 @@ const updateBrand = (id: number) => {
       class="rounded-lg"
       :key="i"
       :value="item"
-      :title="item.title"
       color="orange"
       @click="updateBrand(item.id)"
-    ></v-list-item>
+    >
+      <v-list-item-title class="text-subtitle-2 global-font-classic">{{
+        item.title
+      }}</v-list-item-title>
+    </v-list-item>
   </v-list>
   <!-- </div> -->
 </template>
 
 <style lang="scss" scoped>
-$paddint-height: 6px;
-$title-transition: 0.3s;
-.backgrd {
-  @media (max-width: 480px) {
-    width: 100vw;
-    height: 100vh;
-    background-color: #99999955;
-    backdrop-filter: blur(5px);
-  }
-}
-
-.box-wrap {
-  box-sizing: content-box;
-}
-.container {
-  position: fixed;
-  display: flex;
-  left: 0;
-  transition: all 0.3s linear;
-  background-color: #fff;
-  width: 180px;
-  height: 100%;
-}
-.hr {
-  border: none;
-  border-left: 1px solid #aaa;
-  height: 70vh;
-  margin-top: 10vh;
-  width: 1px;
-}
-.hide-categories {
-  @media (max-width: 480px) {
-    transform: rotate(270deg);
-    height: 30px;
-    width: 100px;
-    position: relative;
-    top: 10vh /* calc(20vh - 10px) */;
-    left: -30px;
-    /* padding-top: 0px; */
-    padding-bottom: 5px;
-    background-color: #fff;
-    border: 1px solid #aaa;
-    border-radius: 0 0 5px 5px;
-    border-top: 0;
-    font-weight: bold;
-    font-size: 0.9rem;
-    color: $main-inactive;
-    // writing-mode: vertical-rl;
-    cursor: pointer;
-  }
-
-  @media (min-width: 480px) {
-    height: 20px;
-    opacity: 0;
-  }
-}
-.container-inactive {
-  @media (max-width: 480px) {
-    left: -170px;
-  }
-}
-
-.brand {
-  height: 20px;
-  width: 150px;
-  padding-left: 30px;
-  padding-top: $paddint-height;
-  padding-bottom: $paddint-height;
-  user-select: none;
-  cursor: pointer;
-
-  &:hover {
-    .title {
-      color: $active-color;
-      transition: color $title-transition;
-    }
-  }
-}
-
-.brand-active .title {
-  color: $active-color;
-}
-.title {
-  // font-size: 1.2rem;
-  font-weight: 700;
-  color: $main-inactive;
-  transition: color $title-transition;
-}
-
 .header {
   font-weight: 100;
-  margin: 30px 0 20px 10px;
+  margin: 20px 0 10px 10px;
   color: $main-inactive;
 }
 </style>
