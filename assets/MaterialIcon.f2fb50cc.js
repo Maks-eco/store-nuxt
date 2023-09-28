@@ -1,0 +1,1 @@
+import{f as c,o as a,g as e,z as l,V as i}from"./entry.fe40ccea.js";const m=c({__name:"MaterialIcon",props:{icon:{},class:{}},emits:["clickIcon"],setup(r,{emit:o}){return(s,n)=>(a(),e(i,{icon:s.icon,onClick:n[0]||(n[0]=t=>o("clickIcon")),class:l(s.class)},null,8,["icon","class"]))}});export{m as default};
